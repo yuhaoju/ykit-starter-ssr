@@ -4,7 +4,7 @@
   "description": "-------------------------------------------------------------------------------- #### **项目管理**： #### *PMO*:(http://pmo.corp.qunar.com)<br /> -------------------------------------------------------------------------------- #### **CI/CD**: #### *QDR*:(http://qdr.corp.qunar.com/)<br /> #### *QCI*:(http://qci.corp.qunar.com/)<br /> #### *CABLE*:(http://wanshiwu.corp.qunar.com/qualitycheck/index/)<br />",
   "main": "index.js",
   "scripts": {
-    "start": "node_modules/.bin/nodemon .ssr/bin/start",
+    "start": "node_modules/.bin/nodemon ssr/bin/start --ignore src/",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -15,9 +15,19 @@
   "license": "ISC",
   "dependencies": {
     "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.2",
     "babel-plugin-transform-async-to-generator": "^6.24.1",
     "babel-preset-env": "^1.6.0",
+    "babel-preset-react": "^6.24.1",
     "koa": "^2.3.0",
-    "nodemon": "^1.12.1"
+    "koa-static-cache": "^5.1.1",
+    "koa-webpack": "^1.0.0",
+    "nodemon": "^1.12.1",
+    "npm": "^5.4.2",
+    "react": "^16.0.0",
+    "react-dom": "^16.0.0",
+    "react-redux": "^5.0.6",
+    "react-router": "^4.2.0",
+    "webpack": "^3.6.0"
   }
 }
