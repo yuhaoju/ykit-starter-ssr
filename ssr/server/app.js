@@ -11,11 +11,11 @@ import ReactDOMServer from 'react-dom/server'
 import { StaticRouter } from 'react-router'
 
 import bootup from './bootup';
-import App from './share/index';
+import App from '../share/index';
 
 // app
 const app = new Koa();
-const appRoot = path.join(__dirname, '../');
+const appRoot = path.join(__dirname, '../../');
 
 // webpack
 const compiler = webpack({
