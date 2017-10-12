@@ -20,7 +20,7 @@ export default class App extends React.Component {
                         return (
                             <Route
                                 key={i}
-                                exact={typeof route.exact === 'undefined' ? true : route.exact}
+                                exact={typeof route.exact === 'undefined' ? false : route.exact}
                                 path={route.path}
                                 render={(routeProps) => (
                                     <RouteComponent {...routeProps} {...this.initialState}/>

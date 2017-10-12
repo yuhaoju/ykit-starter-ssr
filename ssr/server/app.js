@@ -54,13 +54,11 @@ app.use(async ctx => {
     const appPages = getPages();
 
     let asyncTask = function() {
-        console.log('no task!');
         return {};
     };
 
     appPages.forEach(async (page) => {
-        if(isUrlMatch(page.path, ctx.url)) {
-            console.log('match!', page.path, ctx.url);
+        if(isUrlMatch(page.path, ctx.url) && page.getProps) {
             asyncTask = page.getProps;
         }
     });
