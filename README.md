@@ -12,3 +12,7 @@ react + react-router(v4) ssr demo
 npm i
 npm start
 访问 http://localhost:3000/
+
+## TODO
+- 实现一个 `Link` 组件，可以区分 web 和 hy 进行跳转（web 使用 browser history 或者 hash，hy 使用 schema)
+- 添加 web 环境下 client 端跳转生命周期，用来获取页面初始 props
