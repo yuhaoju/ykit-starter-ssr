@@ -1,47 +1,20 @@
 import React from 'react';
-// import { Route, Link, Switch } from 'react-router-dom';
-//
-// import Home from './containers/Home';
-// import List from './containers/List';
-//
-// if (process.env.BROWSER) {
-//     require('./style.scss');
-// }
-//
-// const Status = ({code, children}) => (
-//     <Route
-//         render={({staticContext}) => {
-//             if (staticContext) {
-//                 staticContext.status = code
-//             }
-//             return children
-//         }}
-//     />
-// )
-//
-// const NotFound = () => (
-//     <Status code={404}>
-//         <div>
-//             <h1>Sorry, can’t find that.</h1>
-//         </div>
-//     </Status>
-// )
-//
+import { Route, Switch } from 'react-router-dom';
 
-export default class App extends React.Component {
-    constructor(props) {
-        super(props);
-    }
+import Home from '../../src/home.js'
 
-    componentDidMount() {
-        setTimeout(() => {
-            console.log('1 second!');
-        }, 1000)
-    }
+let routes = (
+    <Switch>
+        <Route exact path="/" component={Home}/>
+    </Switch>
+);
 
-    render() {
-        return (
-            <div>client index.js</div>
-        )
-    }
+if(process.env.BROWSER) {
+    routes = (
+        <Switch>
+            <Route exact path="/" component={Home}/>
+        </Switch>
+    )
 }
+
+export default () => routes

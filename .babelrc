@@ -8,5 +8,5 @@
             "useBuiltIns": "usage"
         }]
     ],
-    "plugins": ["transform-async-to-generator"]
+    "plugins": ["transform-async-to-generator", "dynamic-import-node"]
 }

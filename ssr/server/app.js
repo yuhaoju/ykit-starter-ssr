@@ -24,7 +24,7 @@ const compiler = webpack({
     output: {
         path: path.join(appRoot, 'dist'),
         filename: 'bundle.js',
-        publicPath: '/'
+        publicPath: '/dist/'
     },
     module: {
         loaders: [
@@ -33,7 +33,16 @@ const compiler = webpack({
                 loader: 'babel-loader'
             }
         ]
-    }
+    },
+    plugins: [
+        // new webpack.HotModuleReplacementPlugin(),
+        // new webpack.NoEmitOnErrorsPlugin(),
+        new webpack.DefinePlugin({
+            "process.env": {
+                BROWSER: JSON.stringify(true)
+            }
+        })
+    ]
 });
 app.use(middleware({compiler: compiler}));
 
@@ -60,9 +69,14 @@ app.use(staticCache(path.join(appRoot, 'public'), {
 
 // response
 app.use(async ctx => {
+    const context = {};
     const initialState = {};
+
     bootup(
-        <StaticRouter>
+        <StaticRouter
+            location={ctx.url}
+            context={context}
+        >
             <App/>
         </StaticRouter>,
         initialState,
