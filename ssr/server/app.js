@@ -18,32 +18,8 @@ const app = new Koa();
 const appRoot = path.join(__dirname, '../../');
 
 // webpack
-const compiler = webpack({
-    context: path.join(appRoot, 'ssr/client'),
-    entry: './index.js',
-    output: {
-        path: path.join(appRoot, 'dist'),
-        filename: 'bundle.js',
-        publicPath: '/dist/'
-    },
-    module: {
-        loaders: [
-            {
-                test: /\.js$/,
-                loader: 'babel-loader'
-            }
-        ]
-    },
-    plugins: [
-        // new webpack.HotModuleReplacementPlugin(),
-        // new webpack.NoEmitOnErrorsPlugin(),
-        new webpack.DefinePlugin({
-            "process.env": {
-                BROWSER: JSON.stringify(true)
-            }
-        })
-    ]
-});
+const webpackConfig = require('../client/webpack.config.js');
+const compiler = webpack(webpackConfig);
 app.use(middleware({compiler: compiler}));
 
 // x-response-time

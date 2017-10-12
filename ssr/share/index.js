@@ -1,20 +1,22 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 
-import Home from '../../src/home.js'
+import {pages} from '../../src/index.js'
 
-let routes = (
-    <Switch>
-        <Route exact path="/" component={Home}/>
-    </Switch>
-);
+export default class App extends React.Component {
+    constructor(props) {
+        super(props);
+    }
 
-if(process.env.BROWSER) {
-    routes = (
-        <Switch>
-            <Route exact path="/" component={Home}/>
-        </Switch>
-    )
+    render() {
+        return (
+            <Switch>
+                {
+                    pages.map((route, i) => {
+                        return <Route key={i} exact path={route.path} component={route.component} />
+                    })
+                }
+            </Switch>
+        )
+    }
 }
-
-export default () => routes

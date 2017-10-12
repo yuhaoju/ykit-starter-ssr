@@ -37,3 +37,4 @@ Thumbs.db
 Pods/
 
 package-lock.json
+dist

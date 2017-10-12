@@ -12,14 +12,20 @@ module.exports = {
     output: {
         path: path.join(appRoot, 'dist'),
         filename: 'bundle.js',
-        publicPath: '/dist/',
+        publicPath: '/',
         chunkFilename: '[name].bundle.js',
     },
     module: {
         loaders: [
             {
                 test: /\.js$/,
-                loader: 'babel-loader'
+                loader: 'babel-loader',
+                exclude: [/node_modules/],
+                query: {
+                    presets: [
+                        'es2015', 'stage-0', 'react'
+                    ]
+                }
             }
         ]
     },
