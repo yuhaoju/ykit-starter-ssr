@@ -4,7 +4,8 @@
   "description": "-------------------------------------------------------------------------------- #### **项目管理**： #### *PMO*:(http://pmo.corp.qunar.com)<br /> -------------------------------------------------------------------------------- #### **CI/CD**: #### *QDR*:(http://qdr.corp.qunar.com/)<br /> #### *QCI*:(http://qci.corp.qunar.com/)<br /> #### *CABLE*:(http://wanshiwu.corp.qunar.com/qualitycheck/index/)<br />",
   "main": "index.js",
   "scripts": {
-    "start": "node_modules/.bin/nodemon ssr/bin/start --ignore src/",
+    "dev": "node_modules/.bin/nodemon ssr/bin/start --ignore src/",
+    "start": "node ssr/bin/start",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
