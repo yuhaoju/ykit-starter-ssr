@@ -10,8 +10,13 @@ import React from 'react';
 import ReactDOMServer from 'react-dom/server'
 import { StaticRouter } from 'react-router'
 
+// server
 import bootup from './bootup';
 import App from '../share/index';
+import { isUrlMatch } from './util';
+
+// user config
+import { getPages } from '../../src/index.js'
 
 // app
 const app = new Koa();
@@ -41,19 +46,33 @@ app.use(async(ctx, next) => {
 // static
 app.use(staticCache(path.join(appRoot, 'public'), {
     maxAge: 365 * 24 * 60 * 60
-}))
+}));
 
 // response
 app.use(async ctx => {
     const context = {};
-    const initialState = {};
+    const appPages = getPages();
+
+    let asyncTask = function() {
+        console.log('no task!');
+        return {};
+    };
+
+    appPages.forEach(async (page) => {
+        if(isUrlMatch(page.path, ctx.url)) {
+            console.log('match!', page.path, ctx.url);
+            asyncTask = page.getProps;
+        }
+    });
+
+    const initialState = await asyncTask();
 
     bootup(
         <StaticRouter
             location={ctx.url}
             context={context}
         >
-            <App/>
+            <App initialState={initialState}/>
         </StaticRouter>,
         initialState,
         (err, page) => {

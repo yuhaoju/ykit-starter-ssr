@@ -1,8 +1,9 @@
 import React from 'react';
 
-const Home = () => (
+const Home = (props) => (
     <div>
         <p>Hello Home</p>
+        <p>props: {Object.keys(props).join()}</p>
     </div>
 )
 

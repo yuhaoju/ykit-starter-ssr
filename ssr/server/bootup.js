@@ -1,13 +1,13 @@
 import React from 'react';
 import {renderToString} from 'react-dom/server';
 
-// const { JSDOM } = require('jsdom')
-// const dom = new JSDOM('<!DOCTYPE html><html><body></body></html>')
-// if (typeof window === 'undefined') {
-//     global.window = dom.window
-//     global.document = window.document
-//     global.navigator = window.navigator
-// }
+const { JSDOM } = require('jsdom')
+const dom = new JSDOM('<!DOCTYPE html><html><body></body></html>')
+if (typeof window === 'undefined') {
+    global.window = dom.window
+    global.document = window.document
+    global.navigator = window.navigator
+}
 
 const generatePage = (content, state, options = {
     title: 'SSR Demo'
@@ -31,6 +31,5 @@ export default(components, initialState, callback) => {
     const content = renderToString(
         components
     );
-    const state = {};
-    callback(null, generatePage(content, state));
+    callback(null, generatePage(content, initialState));
 };

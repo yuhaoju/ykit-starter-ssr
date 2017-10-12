@@ -7,7 +7,7 @@ const appRoot = path.join(__dirname, '../../');
 module.exports = {
     context: path.join(appRoot, 'ssr/client'),
     entry: {
-        app: './index.js'
+        app: ['babel-polyfill', './index.js']
     },
     output: {
         path: path.join(appRoot, 'dist'),
