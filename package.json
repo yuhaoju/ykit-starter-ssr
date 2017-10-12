@@ -1,7 +1,7 @@
 {
   "name": "isomorphic-seperate-demo",
   "version": "0.1.0",
-  "description": "-------------------------------------------------------------------------------- #### **项目管理**： #### *PMO*:(http://pmo.corp.qunar.com)<br /> -------------------------------------------------------------------------------- #### **CI/CD**: #### *QDR*:(http://qdr.corp.qunar.com/)<br /> #### *QCI*:(http://qci.corp.qunar.com/)<br /> #### *CABLE*:(http://wanshiwu.corp.qunar.com/qualitycheck/index/)<br />",
+  "description": "react ssr demo",
   "main": "index.js",
   "scripts": {
     "dev": "node_modules/.bin/nodemon ssr/bin/start --ignore src/",
