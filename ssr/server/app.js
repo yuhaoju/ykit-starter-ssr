@@ -64,7 +64,6 @@ app.use(async ctx => {
     });
 
     const initialState = await asyncTask();
-
     bootup(
         <StaticRouter
             location={ctx.url}
