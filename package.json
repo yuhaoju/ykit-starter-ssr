@@ -25,6 +25,7 @@
     "babel-preset-es2015": "^6.24.1",
     "babel-preset-react": "^6.24.1",
     "babel-preset-stage-0": "^6.24.1",
+    "escape-regexp": "0.0.1",
     "jsdom": "^11.3.0",
     "koa": "^2.3.0",
     "koa-static-cache": "^5.1.1",

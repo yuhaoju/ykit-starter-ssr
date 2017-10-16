@@ -13,7 +13,7 @@ import { StaticRouter } from 'react-router'
 // server
 import bootup from './bootup';
 import App from '../share/index';
-import { isUrlMatch } from './util';
+import { isUrlMatch } from '../share/util';
 
 // user config
 import { getPages } from '../../src/index.js'
