@@ -2,4 +2,5 @@
 
 require('babel-core/register');
 // require the rest of the app that needs to be transpiled after the hook
+const ykitStarter = require('../server/ykit-starter.js');
 const app = require('../server/app');

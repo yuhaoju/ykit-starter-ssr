@@ -5,6 +5,7 @@ import Koa from 'koa';
 import staticCache from 'koa-static-cache';
 import middleware from 'koa-webpack';
 import axios from 'axios'
+import logger from 'koa-logger'
 import React from 'react';
 import ReactDOMServer from 'react-dom/server'
 import { StaticRouter } from 'react-router'
@@ -18,10 +19,22 @@ import { isUrlMatch } from '../share/util';
 // user config
 import { getPages } from '../../src/index.js'
 
-// app
+// create app
 const app = new Koa();
 const appRoot = path.join(__dirname, '../../');
 
+// x-response-time
+app.use(async(ctx, next) => {
+    const start = Date.now();
+    await next();
+    const ms = Date.now() - start;
+    ctx.set('X-Response-Time', `${ms}ms`);
+});
+
+// logger
+app.use(logger());
+
+// client assets
 app.use(async(ctx, next) => {
     if (ctx.url.startsWith('/dist')) {
         const extName = path.extname(ctx.url);
@@ -34,29 +47,6 @@ app.use(async(ctx, next) => {
     } else {
         await next(ctx);
     }
-});
-
-app.use(async(ctx, next) => {
-    const start = Date.now();
-    await next();
-    const ms = Date.now() - start;
-    console.log(`${ctx.method} ${ctx.url} - ${ms}`);
-});
-
-// x-response-time
-app.use(async(ctx, next) => {
-    const start = Date.now();
-    await next();
-    const ms = Date.now() - start;
-    ctx.set('X-Response-Time', `${ms}ms`);
-});
-
-// logger
-app.use(async(ctx, next) => {
-    const start = Date.now();
-    await next();
-    const ms = Date.now() - start;
-    console.log(`${ctx.method} ${ctx.url} - ${ms}`);
 });
 
 // static
