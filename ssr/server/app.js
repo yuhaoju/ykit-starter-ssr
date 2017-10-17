@@ -4,11 +4,11 @@ import path from 'path';
 import Koa from 'koa';
 import staticCache from 'koa-static-cache';
 import middleware from 'koa-webpack';
-
-import webpack from 'webpack';
+import axios from 'axios'
 import React from 'react';
 import ReactDOMServer from 'react-dom/server'
 import { StaticRouter } from 'react-router'
+import webpack from 'webpack';
 
 // server
 import bootup from './bootup';
@@ -22,10 +22,26 @@ import { getPages } from '../../src/index.js'
 const app = new Koa();
 const appRoot = path.join(__dirname, '../../');
 
+app.use(async(ctx, next) => {
+    if (ctx.url.startsWith('/dist')) {
+        const { data } = await axios.get(`http://localhost:12456${ctx.url}`);
+        ctx.body = data;
+    } else {
+        await next(ctx);
+    }
+});
+
 // webpack
-const webpackConfig = require('../client/webpack.config.js');
-const compiler = webpack(webpackConfig);
-app.use(middleware({compiler: compiler}));
+// const webpackConfig = require('../client/webpack.config.js');
+// const compiler = webpack(webpackConfig);
+// app.use(middleware({compiler: compiler}));
+
+app.use(async(ctx, next) => {
+    const start = Date.now();
+    await next();
+    const ms = Date.now() - start;
+    console.log(`${ctx.method} ${ctx.url} - ${ms}`);
+});
 
 // x-response-time
 app.use(async(ctx, next) => {
@@ -45,7 +61,7 @@ app.use(async(ctx, next) => {
 
 // static
 app.use(staticCache(path.join(appRoot, 'public'), {
-    maxAge: 365 * 24 * 60 * 60
+    maxAge: 1000
 }));
 
 // response

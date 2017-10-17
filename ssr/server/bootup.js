@@ -22,7 +22,7 @@ const generatePage = (content, state, options = {
   <body>
     <div id="app">${content}</div>
     <script>window.__INITIAL_STATE__ = ${JSON.stringify(state)};</script>
-    <script src="/bundle.js"></script>
+    <script src="/dist/index.js"></script>
   </body>
 </html>
 `;

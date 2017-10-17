@@ -4,7 +4,7 @@
   "description": "react ssr demo",
   "main": "index.js",
   "scripts": {
-    "dev": "node_modules/.bin/nodemon ssr/bin/start --ignore src/",
+    "dev": "concurrently \"ykit s -p 12456\" \"node_modules/.bin/nodemon ssr/bin/start --ignore src/\"",
     "start": "node ssr/bin/start",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -17,14 +17,16 @@
   "dependencies": {
     "axios": "^0.16.2",
     "babel-core": "^6.26.0",
-    "babel-loader": "^7.1.2",
+    "babel-loader": "^6.4.1",
     "babel-plugin-dynamic-import-node": "^1.1.0",
     "babel-plugin-transform-async-to-generator": "^6.24.1",
+    "babel-plugin-transform-runtime": "^6.23.0",
     "babel-polyfill": "^6.26.0",
     "babel-preset-env": "^1.6.0",
     "babel-preset-es2015": "^6.24.1",
     "babel-preset-react": "^6.24.1",
     "babel-preset-stage-0": "^6.24.1",
+    "concurrently": "^3.5.0",
     "escape-regexp": "0.0.1",
     "jsdom": "^11.3.0",
     "koa": "^2.3.0",
@@ -35,6 +37,7 @@
     "react-dom": "^16.0.0",
     "react-router": "^4.2.0",
     "react-router-dom": "^4.2.2",
-    "webpack": "^3.6.0"
+    "webpack": "^3.6.0",
+    "ykit-config-ssr": "0.0.2"
   }
 }
