@@ -24,17 +24,17 @@ const appRoot = path.join(__dirname, '../../');
 
 app.use(async(ctx, next) => {
     if (ctx.url.startsWith('/dist')) {
+        const extName = path.extname(ctx.url);
+        extName === '.js' && ctx.set('Content-Type', 'text/javascript; charset=UTF-8');
+        extName === '.css' && ctx.set('Content-Type', 'text/css; charset=UTF-8');
+        ctx.set('Access-Control-Allow-Origin', '*');
+
         const { data } = await axios.get(`http://localhost:12456${ctx.url}`);
         ctx.body = data;
     } else {
         await next(ctx);
     }
 });
-
-// webpack
-// const webpackConfig = require('../client/webpack.config.js');
-// const compiler = webpack(webpackConfig);
-// app.use(middleware({compiler: compiler}));
 
 app.use(async(ctx, next) => {
     const start = Date.now();

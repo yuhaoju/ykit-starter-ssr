@@ -4,7 +4,7 @@
   "description": "react ssr demo",
   "main": "index.js",
   "scripts": {
-    "dev": "concurrently \"ykit s -p 12456\" \"node_modules/.bin/nodemon ssr/bin/start --ignore src/\"",
+    "dev": "concurrently \"ykit s -p 12456 --hot\" \"node_modules/.bin/nodemon ssr/bin/start --ignore src/\"",
     "start": "node ssr/bin/start",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
