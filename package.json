@@ -4,7 +4,7 @@
   "description": "react ssr demo",
   "main": "index.js",
   "scripts": {
-    "dev": "node_modules/.bin/nodemon ssr/bin/start",
+    "dev": "ykit start",
     "start": "node ssr/bin/start",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -33,12 +33,11 @@
     "koa-logger": "^3.1.0",
     "koa-static-cache": "^5.1.1",
     "koa-webpack": "^1.0.0",
-    "nodemon": "^1.12.1",
     "react": "^16.0.0",
     "react-dom": "^16.0.0",
     "react-router": "^4.2.0",
     "react-router-dom": "^4.2.2",
     "webpack": "^3.6.0",
-    "ykit-config-ssr": "0.0.2"
+    "ykit-config-ssr": "0.0.3"
   }
 }
