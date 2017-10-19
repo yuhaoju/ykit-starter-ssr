@@ -20,7 +20,7 @@ import { getPages } from '../../src/index.js'
 // create app
 const app = new Koa();
 const appRoot = path.join(__dirname, '../../');
-const isProduction = process.env.NODE_ENV === 'production';
+const isProduction = __YKIT__START__PARAMS__.isProduction || process.env.NODE_ENV === 'production';
 
 // x-response-time
 app.use(async(ctx, next) => {
@@ -101,6 +101,10 @@ app.use(async ctx => {
     );
 });
 
-const port = 3000;
+const port =  __YKIT__START__PARAMS__.port || process.env.PORT || 3000;
+const serverUrl = `http://127.0.0.1:${port}`;
+const mode = isProduction ? 'production'.blue : 'development'.yellow;
+
 app.listen(port);
-console.log('listening on ' + port);
+console.log(`> Starting in [${mode.bold}] mode`);
+console.log(`> Available on: ${serverUrl.cyan.underline.bold}`);

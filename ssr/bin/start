@@ -1,6 +1,28 @@
 #!/usr/bin/env node
 
-require('babel-core/register');
-// require the rest of the app that needs to be transpiled after the hook
-const ykitStarter = require('../server/ykit-starter.js');
-const app = require('../server/app');
+var isRunning = false;
+
+var start = function () {
+    isRunning = true;
+
+    // 防止 ykit 启动选项不存在
+    global.__YKIT__START__PARAMS__ = global.__YKIT__START__PARAMS__
+                                    ? global.__YKIT__START__PARAMS__
+                                    : {}
+
+    // require the rest of the app that needs to be transpiled after the hook
+    require('colors');
+    require('babel-core/register');
+    const ykitStarter = require('../server/ykit-starter.js');
+    const app = require('../server/app');
+}
+
+// 导出来让 ykit 启动
+module.exports = start;
+
+// 如果不是通过 ykit 启动，则自己启动
+setImmediate(function() {
+    if(!isRunning) {
+        start();
+    }
+})
