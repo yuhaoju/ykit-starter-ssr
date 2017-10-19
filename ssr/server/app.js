@@ -22,6 +22,7 @@ import { getPages } from '../../src/index.js'
 // create app
 const app = new Koa();
 const appRoot = path.join(__dirname, '../../');
+const isProduction = process.env.NODE_ENV === 'production';
 
 // x-response-time
 app.use(async(ctx, next) => {
@@ -55,17 +56,19 @@ app.use(staticCache(path.join(appRoot, 'public'), {
 }));
 
 // response
-const watcher = chokidar.watch(path.join(appRoot, 'src'));
-watcher.on('ready', () => {
-    watcher.on('all', () => {
-        Object.keys(require.cache).forEach((id) => {
-            const shouldRefresh = /[\/\\][src|share][\/\\]/.test(id)
-            if (/\/(share||src)\//.test(id) && !id.includes('node_modules')) {
-                delete require.cache[id]
-            }
+if(!isProduction) {
+    const watcher = chokidar.watch(path.join(appRoot, 'src'));
+    watcher.on('ready', () => {
+        watcher.on('all', () => {
+            Object.keys(require.cache).forEach((id) => {
+                const shouldRefresh = /[\/\\][src|share][\/\\]/.test(id)
+                if (/\/(share||src)\//.test(id) && !id.includes('node_modules')) {
+                    delete require.cache[id]
+                }
+            })
         })
     })
-})
+}
 
 app.use(async ctx => {
     const context = {};
