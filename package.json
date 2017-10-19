@@ -4,9 +4,8 @@
   "description": "react ssr demo",
   "main": "index.js",
   "scripts": {
-    "dev": "ykit start",
-    "start": "node ssr/bin/start",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "NODE_ENV=development node ssr/bin/start",
+    "prod": "NODE_ENV=production pm2 start ssr/bin/start"
   },
   "repository": {
     "type": "git",
@@ -15,6 +14,6 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "ykit-config-ssr": ">0.0.10"
+    "ykit-config-ssr": "^0.0.10"
   }
 }

@@ -34,38 +34,43 @@ app.use(async(ctx, next) => {
 app.use(logger());
 
 // client assets
-app.use(async(ctx, next) => {
-    if (ctx.url.startsWith('/dist')) {
-        const extName = path.extname(ctx.url);
-        extName === '.js' && ctx.set('Content-Type', 'text/javascript; charset=UTF-8');
-        extName === '.css' && ctx.set('Content-Type', 'text/css; charset=UTF-8');
-        ctx.set('Access-Control-Allow-Origin', '*');
+if(isProduction) {
+    // static
+    app.use(staticCache(path.join(appRoot, 'dist'), {
+        prefix: '/dist',
+        gzip: true,
+        maxAge: 30 * 24 * 60 * 60
+    }));
+} else {
+    // ykit server
+    app.use(async(ctx, next) => {
+        if (ctx.url.startsWith('/dist')) {
+            const extName = path.extname(ctx.url);
+            extName === '.js' && ctx.set('Content-Type', 'text/javascript; charset=UTF-8');
+            extName === '.css' && ctx.set('Content-Type', 'text/css; charset=UTF-8');
+            ctx.set('Access-Control-Allow-Origin', '*');
 
-        const { data } = await axios.get(`http://localhost:12456${ctx.url}`);
-        ctx.body = data;
-    } else {
-        await next(ctx);
-    }
-});
+            const { data } = await axios.get(`http://localhost:12456${ctx.url}`);
+            ctx.body = data;
+        } else {
+            await next(ctx);
+        }
+    });
 
-// static
-app.use(staticCache(path.join(appRoot, 'public'), {
-    maxAge: 1000
-}));
-
-// response
-if(!isProduction) {
-    const watcher = chokidar.watch(path.join(appRoot, 'src'));
-    watcher.on('ready', () => {
-        watcher.on('all', () => {
-            Object.keys(require.cache).forEach((id) => {
-                const shouldRefresh = /[\/\\][src|share][\/\\]/.test(id)
-                if (/\/(share||src)\//.test(id) && !id.includes('node_modules')) {
-                    delete require.cache[id]
-                }
+    // watch
+    if(!isProduction) {
+        const watcher = chokidar.watch(path.join(appRoot, 'src'));
+        watcher.on('ready', () => {
+            watcher.on('all', () => {
+                Object.keys(require.cache).forEach((id) => {
+                    const shouldRefresh = /[\/\\][src|share][\/\\]/.test(id)
+                    if (/\/(share||src)\//.test(id) && !id.includes('node_modules')) {
+                        delete require.cache[id]
+                    }
+                })
             })
         })
-    })
+    }
 }
 
 app.use(async ctx => {
