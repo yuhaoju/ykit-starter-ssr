@@ -103,8 +103,7 @@ app.use(async ctx => {
 
 const port =  __YKIT__START__PARAMS__.port || process.env.PORT || 3000;
 const serverUrl = `http://127.0.0.1:${port}`;
-const mode = isProduction ? 'production'.blue : 'development'.yellow;
+const mode = isProduction ? ' PRODUCTION '.bgBlue : ' DEVELOPMENT '.bgYellow;
 
 app.listen(port);
-console.log(`> Starting in [${mode.bold}] mode`);
-console.log(`> Available on: ${serverUrl.cyan.underline.bold}`);
+console.log(`> ${mode.black} Available on ${serverUrl.underline}`);

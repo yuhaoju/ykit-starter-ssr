@@ -15,6 +15,6 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "ykit-config-ssr": "^0.0.8"
+    "ykit-config-ssr": ">0.0.10"
   }
 }
