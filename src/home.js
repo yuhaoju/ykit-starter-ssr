@@ -8,11 +8,11 @@ const Home = (props) => {
             <h1>Home Page</h1>
             {
                 props.posts ? Object.keys(props.posts).map((key, i) => {
-                    const item = props.posts[key];
+                    const show = props.posts[key].show;
                     return (
                         <Link key={i} to={`/detail/${key}`}>
-                            <h3>{item.title}</h3>
-                            <p>{item.body}</p>
+                            <h3>{show.name}</h3>
+                            <p>{show.summary}</p>
                             <hr/>
                         </Link>
                     )

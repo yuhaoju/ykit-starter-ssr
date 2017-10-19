@@ -10,10 +10,10 @@ import React from 'react';
 import ReactDOMServer from 'react-dom/server'
 import { StaticRouter } from 'react-router'
 import webpack from 'webpack';
+import chokidar from 'chokidar';
 
 // server
 import bootup from './bootup';
-import App from '../share/index';
 import { isUrlMatch } from '../share/util';
 
 // user config
@@ -55,9 +55,22 @@ app.use(staticCache(path.join(appRoot, 'public'), {
 }));
 
 // response
+const watcher = chokidar.watch(path.join(appRoot, 'src'));
+watcher.on('ready', () => {
+    watcher.on('all', () => {
+        Object.keys(require.cache).forEach((id) => {
+            const shouldRefresh = /[\/\\][src|share][\/\\]/.test(id)
+            if (/\/(share||src)\//.test(id) && !id.includes('node_modules')) {
+                delete require.cache[id]
+            }
+        })
+    })
+})
+
 app.use(async ctx => {
     const context = {};
     const appPages = getPages();
+    const App = require('../share/index').default;
 
     let asyncTask = function() {
         return {};
