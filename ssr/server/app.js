@@ -3,7 +3,6 @@ import path from 'path';
 
 import Koa from 'koa';
 import staticCache from 'koa-static-cache';
-import middleware from 'koa-webpack';
 import axios from 'axios'
 import logger from 'koa-logger'
 import React from 'react';
