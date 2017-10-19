@@ -11,7 +11,7 @@ export function getPages() {
             exact: true,
             getProps: async() => {
                 const { data: posts } = await axios.get(
-                    'https://easy-mock.com/mock/59b12b10e0dc663341a14c80/example_1504783120501/tvmaze'
+                    'http://yapi.demo.qunar.com/mock/818/tvmaze/list'
                 );
                 return { posts };
             }
