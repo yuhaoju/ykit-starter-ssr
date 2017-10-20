@@ -50,8 +50,12 @@ if(isProduction) {
             extName === '.css' && ctx.set('Content-Type', 'text/css; charset=UTF-8');
             ctx.set('Access-Control-Allow-Origin', '*');
 
-            const { data } = await axios.get(`http://localhost:12456${ctx.url}`);
-            ctx.body = data;
+            try {
+                const { data } = await axios.get(`http://localhost:12456${ctx.url}`);
+                ctx.body = data;
+            } catch(e){
+                // TODO insert log
+            }
         } else {
             await next(ctx);
         }

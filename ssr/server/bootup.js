@@ -18,11 +18,12 @@ const generatePage = (content, state, options = {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
     <title>${options.title}</title>
+    <link rel="stylesheet" href="/dist/style.css" />
   </head>
   <body>
     <div id="app">${content}</div>
     <script>window.__INITIAL_STATE__ = ${JSON.stringify(state)};</script>
-    <script src="/dist/index.js"></script>
+    <script src="/dist/bundle.js"></script>
   </body>
 </html>
 `;

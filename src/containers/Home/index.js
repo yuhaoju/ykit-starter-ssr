@@ -1,12 +1,12 @@
 import React from 'react';
 
 import Link from 'SSR/link';
-import './style.css';
+import { StyleSheet, css } from 'aphrodite';
 
 const Home = (props) => {
     return (
         <div>
-            <h1>Home Page</h1>
+            <h1 className={css(styles.red)}>Home Page</h1>
             {
                 props.posts ? Object.keys(props.posts).map((key, i) => {
                     const show = props.posts[key].show;
@@ -22,5 +22,27 @@ const Home = (props) => {
         </div>
     )
 }
+
+const styles = StyleSheet.create({
+    red: {
+        backgroundColor: 'red'
+    },
+
+    blue: {
+        backgroundColor: 'blue'
+    },
+
+    hover: {
+        ':hover': {
+            backgroundColor: 'red'
+        }
+    },
+
+    small: {
+        '@media (max-width: 600px)': {
+            backgroundColor: 'red',
+        }
+    }
+});
 
 export default Home

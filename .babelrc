@@ -15,7 +15,6 @@
     "plugins": [
         "transform-async-to-generator",
         "dynamic-import-node",
-        "css-modules-transform",
         ["module-alias", [
             {
                 "src": "./ssr/share",
