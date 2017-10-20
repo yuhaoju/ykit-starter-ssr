@@ -1,7 +1,6 @@
 {
     "presets": [
-        "react",
-        ["env", {
+        "react", ["env", {
             "targets": {
                 "node": "current",
                 "browsers": [
@@ -13,5 +12,15 @@
             "useBuiltIns": "usage"
         }]
     ],
-    "plugins": ["transform-async-to-generator", "dynamic-import-node"]
+    "plugins": [
+        "transform-async-to-generator",
+        "dynamic-import-node",
+        "css-modules-transform",
+        ["module-alias", [
+            {
+                "src": "./ssr/share",
+                "expose": "SSR"
+            }
+        ]]
+    ]
 }

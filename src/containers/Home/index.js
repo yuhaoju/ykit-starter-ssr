@@ -1,6 +1,7 @@
 import React from 'react';
 
-import Link from '../ssr/share/link';
+import Link from 'SSR/link';
+import './style.css';
 
 const Home = (props) => {
     return (

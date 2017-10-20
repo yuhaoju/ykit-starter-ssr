@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Link from '../ssr/share/link';
+import Link from 'SSR/link';
 
 export default(props) => {
     return (

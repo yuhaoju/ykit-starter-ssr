@@ -1,6 +1,6 @@
 import 'babel-polyfill';
-import Home from './home';
-import Detail from './detail';
+import Home from './containers/Home';
+import Detail from './containers/Detail';
 import axios from 'axios';
 
 export function getPages() {
