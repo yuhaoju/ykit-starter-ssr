@@ -2,6 +2,8 @@ import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 import { getPages } from '../../src/index.js'
 
+import Loadble from './loadable';
+
 const pages = getPages();
 export default class App extends React.Component {
     constructor(props) {
@@ -16,7 +18,6 @@ export default class App extends React.Component {
             <Switch>
                 {
                     pages.map((route, i) => {
-                        const RouteComponent = route.component;
                         return (
                             <Route
                                 key={i}
@@ -25,7 +26,9 @@ export default class App extends React.Component {
                                 render={(routeProps) => {
                                     const clientInitialState = window.__CLIENT_INITIAL_STATE__ || {};
                                     return (
-                                        <RouteComponent
+                                        <Loadble
+                                            Component={route.component}
+                                            getComponent={route.getComponent}
                                             {...routeProps}
                                             {...this.initialState}
                                             {...clientInitialState}
