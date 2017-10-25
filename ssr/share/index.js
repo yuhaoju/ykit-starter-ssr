@@ -5,6 +5,7 @@ import { getPages } from '../../src/index.js'
 import Loadble from './loadable';
 
 const pages = getPages();
+
 export default class App extends React.Component {
     constructor(props) {
         super(props);

@@ -12,7 +12,16 @@ var start = function () {
 
     // require the rest of the app that needs to be transpiled after the hook
     require('colors');
-    require('babel-core/register');
+    require('babel-core/register')({
+        plugins: [
+            ["module-alias", [
+                {
+                    "src": "./ssr/share",
+                    "expose": "SSR"
+                }
+            ]]
+        ]
+    });
     const ykitStarter = require('../server/ykit-starter.js');
     const app = require('../server/app');
 }
