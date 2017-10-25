@@ -18,7 +18,6 @@ const generatePage = (content, state, options = {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
     <title>${options.title}</title>
-    <link rel="stylesheet" href="/dist/style.css" />
   </head>
   <body>
     <div id="app">${content}</div>

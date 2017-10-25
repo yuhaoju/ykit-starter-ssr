@@ -2,7 +2,6 @@ import 'babel-polyfill';
 import Home from './containers/Home';
 import axios from 'axios';
 
-
 function getComponent(componentPath) {
     return (callback) => {
         require.ensure([], (require) => {
