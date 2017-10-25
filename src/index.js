@@ -2,6 +2,15 @@ import 'babel-polyfill';
 import Home from './containers/Home';
 import axios from 'axios';
 
+
+function getComponent(componentPath) {
+    return (callback) => {
+        require.ensure([], (require) => {
+            callback(require(`${componentPath}`));
+        })
+    }
+}
+
 export function getPages() {
     return [
         {
@@ -16,11 +25,7 @@ export function getPages() {
             }
         }, {
             path: '/detail/:id',
-            getComponent: (callback) => {
-                require.ensure([], () => {
-                    callback(require('./containers/Detail'));
-                })
-            }
+            getComponent: getComponent('./containers/Detail/index.js')
         }
     ]
 }
