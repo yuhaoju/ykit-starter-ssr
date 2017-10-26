@@ -1,7 +1,8 @@
 import React from 'react';
-import {renderToString} from 'react-dom/server';
+import { renderToString } from 'react-dom/server';
+import { StyleSheetServer } from 'aphrodite';
+import { JSDOM } from 'jsdom';
 
-const { JSDOM } = require('jsdom')
 const dom = new JSDOM('<!DOCTYPE html><html><body></body></html>')
 if (typeof window === 'undefined') {
     global.window = dom.window
@@ -9,7 +10,7 @@ if (typeof window === 'undefined') {
     global.navigator = window.navigator
 }
 
-const generatePage = (content, state, options = {
+const generatePage = (html, css, state, options = {
     title: 'SSR Demo'
 }) => `
 <!DOCTYPE html>
@@ -18,9 +19,11 @@ const generatePage = (content, state, options = {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
     <title>${options.title}</title>
+    <style data-aphrodite>${css.content}</style>
   </head>
   <body>
-    <div id="app">${content}</div>
+    <div id="app">${html}</div>
+    <script>window.renderedClassNames = ${JSON.stringify(css.renderedClassNames)};</script>
     <script>window.__INITIAL_STATE__ = ${JSON.stringify(state)};</script>
     <script src="/dist/bundle.js"></script>
   </body>
@@ -28,8 +31,10 @@ const generatePage = (content, state, options = {
 `;
 
 export default(components, initialState, callback) => {
-    const content = renderToString(
-        components
-    );
-    callback(null, generatePage(content, initialState));
+    const {html, css} = StyleSheetServer.renderStatic(() => {
+        return renderToString(
+            components
+        );
+    });
+    callback(null, generatePage(html, css, initialState));
 };

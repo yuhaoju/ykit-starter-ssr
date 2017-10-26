@@ -53,7 +53,7 @@ if(isProduction) {
             try {
                 const { data } = await axios.get(`http://localhost:12456${ctx.url}`);
                 ctx.body = data;
-            } catch(e){
+            } catch(e) {
                 // TODO insert log
             }
         } else {
@@ -100,6 +100,7 @@ app.use(async ctx => {
         >
             <App initialState={initialState}/>
         </StaticRouter>,
+
         initialState,
         (err, page) => {
             if (err) {
