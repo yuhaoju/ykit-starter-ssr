@@ -20,7 +20,6 @@ import { getPages } from '../../src/index.js'
 // create app
 const app = new Koa();
 const appRoot = path.join(__dirname, '../../');
-const isProduction = __YKIT__START__PARAMS__.isProduction || process.env.NODE_ENV === 'production';
 
 // x-response-time
 app.use(async(ctx, next) => {

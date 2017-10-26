@@ -2,6 +2,7 @@ import React from 'react';
 import { renderToString } from 'react-dom/server';
 import { StyleSheetServer } from 'aphrodite';
 import { JSDOM } from 'jsdom';
+import globby from 'globby';
 
 const dom = new JSDOM('<!DOCTYPE html><html><body></body></html>')
 if (typeof window === 'undefined') {
@@ -10,6 +11,7 @@ if (typeof window === 'undefined') {
     global.navigator = window.navigator
 }
 
+const bunleFilePath = isProduction ? globby.sync(['./dist/bundle@**.js']) : './dist/bundle.js';
 const generatePage = (html, css, state, options = {
     title: 'SSR Demo'
 }) => `
@@ -25,7 +27,7 @@ const generatePage = (html, css, state, options = {
     <div id="app">${html}</div>
     <script>window.renderedClassNames = ${JSON.stringify(css.renderedClassNames)};</script>
     <script>window.__INITIAL_STATE__ = ${JSON.stringify(state)};</script>
-    <script src="/dist/bundle.js"></script>
+    <script src="${bunleFilePath}"></script>
   </body>
 </html>
 `;

@@ -8,7 +8,10 @@ var start = function () {
     // 防止 ykit 启动选项不存在
     global.__YKIT__START__PARAMS__ = global.__YKIT__START__PARAMS__
                                     ? global.__YKIT__START__PARAMS__
-                                    : {}
+                                    : {};
+
+    global.isProduction = __YKIT__START__PARAMS__.isProduction
+                        || process.env.NODE_ENV === 'production';
 
     // require the rest of the app that needs to be transpiled after the hook
     require('colors');
