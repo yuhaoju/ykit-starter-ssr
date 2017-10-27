@@ -11,7 +11,10 @@ if (typeof window === 'undefined') {
     global.navigator = window.navigator
 }
 
-const bunleFilePath = isProduction ? globby.sync(['./dist/bundle@**.js']) : './dist/bundle.js';
+const bunleFilePath = (isProduction
+    ? globby.sync(['./dist/bundle@**.js'])[0]
+    : './dist/bundle.js').replace(/^\./, '');
+
 const generatePage = (html, css, state, options = {
     title: 'SSR Demo'
 }) => `
