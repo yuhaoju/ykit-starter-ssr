@@ -27,8 +27,8 @@ var start = function () {
     });
 
     // start app
-    const clientServerProcess = require('../server/client-starter.js')();
     const app = require('../server/app');
+    const clientServerProcess = require('../server/client-starter.js')();
 
     // error handler
     process.on('exit', exitHandler.bind(null));
