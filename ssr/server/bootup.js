@@ -13,7 +13,6 @@ if (typeof window === 'undefined') {
 }
 
 const getBundlePath = function(fileName) {
-    console.log('fileName', fileName);
     const ext = path.extname(fileName);
     const basename = path.basename(fileName, ext);
 
