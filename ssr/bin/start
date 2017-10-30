@@ -25,8 +25,23 @@ var start = function () {
             ]]
         ]
     });
-    const ykitStarter = require('../server/ykit-starter.js');
+
+    // start app
+    const clientServerProcess = require('../server/client-starter.js')();
     const app = require('../server/app');
+
+    // error handler
+    process.on('exit', exitHandler.bind(null));
+    process.on('SIGINT', exitHandler.bind(null));
+    process.on('uncaughtException', (err) => {
+        console.error(err);
+        process.exit(1);
+    });
+    function exitHandler() {
+        // cleanup
+        clientServerProcess && clientServerProcess.kill('SIGINT');
+        process.exit(0);
+    }
 }
 
 // 导出来让 ykit 启动
